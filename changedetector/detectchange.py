@@ -33,9 +33,9 @@ else:
     print("❌ Wrong language")
     sys.exit()
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = BASE_DIR = input("Enter the path to the directory you want to watch: ")
 
-FILE = input(f"Enter the file you want to watch the base directory\n|-> {BASE_DIR}\... \n")
+FILE = input(f"Enter the file you want to watch the base directory\n|-> {BASE_DIR}... \n")
 THE_FILE = os.path.join(BASE_DIR, f'{FILE}')
 # Check if the file's path is valid
 if not os.path.isfile(THE_FILE) or THE_FILE == " " or THE_FILE == "":
