@@ -1,6 +1,3 @@
-# Detect if the giraffe.rb file has changed and if so, run the command : ruby giraffe.rb
-# This is a simple script to detect if the file has changed.
-
 import time
 import os
 import subprocess
@@ -8,7 +5,7 @@ import sys
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from pyfiglet import Figlet
-from _purcent import Loader
+from _purcent import Loader as __Loader
 
 
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -53,44 +50,44 @@ if language in ["c++", "cpp"]:
     COMMAND_LIST.append(OUTPUT_FILE)
 
 
-def language_output():
-    h = Loader()
+def __language_output():
+    h = __Loader()
     h.run()
     # clear the terminal
     os.system('cls' if os.name == 'nt' else 'clear')
     if language in ["ruby", "rb"]:
-        ruby_output()
+        __ruby_output()
     elif language in ["python", "py", "python3"]:
-        python_output()
+        __python_output()
     elif language in ["c++", "cpp"]:
-        cpp_output()
+        __cpp_output()
 
-def cpp_output():
+def __cpp_output():
     custom_fig = Figlet(font='banner3-D')
     print(custom_fig.renderText('C++'))
     print(f"{THE_FILE}")
 
-def python_output():
+def __python_output():
     custom_fig = Figlet(font='banner3-D')
     print(custom_fig.renderText('Python'))
     print(f"{THE_FILE}")
 
 
-def ruby_output():
+def __ruby_output():
     custom_fig = Figlet(font='banner3-D')
     print(custom_fig.renderText('Ruby'))
     print(f"{THE_FILE}")
 
-language_output()
+__language_output()
 
-class Watcher:
+class __Watcher:
     DIRECTORY_TO_WATCH = BASE_DIR
 
     def __init__(self):
         self.observer = Observer()
 
     def run(self):
-        event_handler = Handler()
+        event_handler = __Handler()
         self.observer.schedule(
             event_handler, self.DIRECTORY_TO_WATCH, recursive=True)
         self.observer.start()
@@ -104,7 +101,7 @@ class Watcher:
         self.observer.join()
 
 
-class Handler(FileSystemEventHandler):
+class __Handler(FileSystemEventHandler):
 
     @staticmethod
     def on_any_event(event):
@@ -153,12 +150,9 @@ def activate() -> None:
     detectchange.activate()
     ```
     """
-    w = Watcher()
+    w = __Watcher()
     print(" ")
     print("👀 Watching...")
     print(" ")
     w.run()
 
-
-if __name__ == '__main__':
-    activate()
