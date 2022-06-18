@@ -1,0 +1,2 @@
+pyfiglet==0.8.post1
+watchdog==2.1.9
