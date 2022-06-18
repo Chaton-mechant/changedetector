@@ -5,7 +5,7 @@ import sys
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from pyfiglet import Figlet
-from _purcent import Loader as __Loader
+from ._purcent import Loader as __Loader
 
 
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -80,14 +80,14 @@ def __ruby_output():
 
 __language_output()
 
-class __Watcher:
+class _Watcher:
     DIRECTORY_TO_WATCH = BASE_DIR
 
     def __init__(self):
         self.observer = Observer()
 
     def run(self):
-        event_handler = __Handler()
+        event_handler = _Handler()
         self.observer.schedule(
             event_handler, self.DIRECTORY_TO_WATCH, recursive=True)
         self.observer.start()
@@ -101,7 +101,7 @@ class __Watcher:
         self.observer.join()
 
 
-class __Handler(FileSystemEventHandler):
+class _Handler(FileSystemEventHandler):
 
     @staticmethod
     def on_any_event(event):
@@ -150,7 +150,7 @@ def activate() -> None:
     detectchange.activate()
     ```
     """
-    w = __Watcher()
+    w = _Watcher()
     print(" ")
     print("👀 Watching...")
     print(" ")
