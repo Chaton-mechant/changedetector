@@ -1,1 +1,2 @@
 include changedetector/*.py
+include requirements.txt

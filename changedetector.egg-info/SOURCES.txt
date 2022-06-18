@@ -1,0 +1,14 @@
+LICENCE
+MANIFEST.in
+README.md
+pyproject.toml
+requirements.txt
+setup.py
+changedetector/__init__.py
+changedetector/_purcent.py
+changedetector/detectchange.py
+changedetector.egg-info/PKG-INFO
+changedetector.egg-info/SOURCES.txt
+changedetector.egg-info/dependency_links.txt
+changedetector.egg-info/requires.txt
+changedetector.egg-info/top_level.txt
