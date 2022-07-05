@@ -20,13 +20,11 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-
-      # Sets up python3
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@master
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v3
         with:
-          python-version: 3.9 
+          python-version: "3.10"
 
       # Installs and upgrades pip, installs other dependencies and installs the package from setup.py
       - name: "Installs and upgrades pip, installs other dependencies and installs the package from setup.py"
@@ -39,13 +37,26 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
           # Install the package from setup.py
           python3 setup.py install
-
-      # Upload to TestPyPI
-      - name: Build and Upload to TestPyPI
-        run: |
-          python3 setup.py sdist bdist_wheel
-          python3 -m twine upload dist/*
-        env:
-          TWINE_USERNAME: __token__
-          TWINE_PASSWORD: ${{ secrets.TEST_CHANGEDETECTOR }}
-          TWINE_REPOSITORY: testpypi
+        
+      # build  
+      - name: Install pypa/build
+        run: >-
+          python -m
+          pip install
+          build
+          --user
+      - name: Build a binary wheel and a source tarball
+        run: >-
+          python -m
+          build
+          --sdist
+          --wheel
+          --outdir dist/
+          .
+          
+      # Publish
+      - name: Publish distribution 📦 to Test PyPI
+        uses: pypa/gh-action-pypi-publish@master
+        with:
+          password: ${{ secrets.TEST_CHANGEDETECTOR }}
+          repository_url: https://test.pypi.org/legacy/
