@@ -64,7 +64,6 @@ jobs:
           
       # Publish to PyPi
       - name: Publish 📦 to PyPI
-        if: startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@master
         with:
           password: ${{ secrets.CHANGEDETECTOR_PUBLISH_TOKEN }}
