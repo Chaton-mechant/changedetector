@@ -1,3 +1,12 @@
+"""
+DETECT CHANGE
+=============
+
+This module detect all the change in a selected directory.
+
+And execute a program chosen on saved changes. (Python, Ruby, C++)
+"""
+
 import time
 import os
 import subprocess
@@ -5,7 +14,8 @@ import sys
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from pyfiglet import Figlet
-from ._purcent import Loader as __Loader
+from _purcent import Loader as __Loader
+from _colors import Colors
 
 
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -13,33 +23,33 @@ f = Figlet(font='banner3-D', width=80)
 print(f.renderText('Change'))
 print(f.renderText('Detect'))
 global language
-language = input("Enter the language you want to use: ( ruby | python | c++ ) ").lower()
+language = input(f"{Colors.BOLD}Enter the language you want to use: {Colors.GREEN}( ruby | python | c++ ) {Colors.END}").lower()
 if language in ["python", "py", "python3"]:
     CMD = 'py'
 elif language in ["ruby", "rb"]:
     CMD = 'ruby'
 elif language in ["c++", "cpp"]:
-    CMD = input("Enter the compiler you want to use: ( g++ | clang++ | ...) ")
-    OPTION = input("Enter compilation options you want to use: (None)").split(" ")
+    CMD = input(f"{Colors.BOLD}Enter the compiler you want to use: {Colors.GREEN}( g++ | clang++ | ...) {Colors.END}")
+    OPTION = input(f"{Colors.Bold}Enter compilation options you want to use: {Colors.GREEN}(None){Colors.END}").split(" ")
     if OPTION in ["none", "", " "]:
         OPTION = [""]
-    OUTPUT_ATTRIBUTE = input("Enter the output attribute you want to use: (-o)")
+    OUTPUT_ATTRIBUTE = input(f"{Colors.BOLD}Enter the output attribute you want to use: {Colors.GREEN}(-o){Colors.END}")
     if OUTPUT_ATTRIBUTE in ["", " "]:
         OUTPUT_ATTRIBUTE = "-o"
-    OUTPUT_FILE = input("Enter the output file you want to use: (out.exe)").lower()
+    OUTPUT_FILE = input(f"{Colors.BOLD}Enter the output file you want to use: {Colors.GREEN}(out.exe){Colors.END}").lower()
     if OUTPUT_FILE in ["", " "]:
         OUTPUT_FILE = "out.exe"
 else:
     print("❌ Wrong language")
     sys.exit()
 
-BASE_DIR = BASE_DIR = input("Enter the path to the directory you want to watch: ")
+BASE_DIR = BASE_DIR = input(f"{Colors.BOLD}Enter the path to the directory you want to watch: {Colors.END}")
 
-FILE = input(f"Enter the file you want to watch the base directory\n|-> {BASE_DIR}... \n")
+FILE = input(f"{Colors.BOLD}Enter the file you want to watch the base directory\n|-> {BASE_DIR}... \n{Colors.END}")
 THE_FILE = os.path.join(BASE_DIR, f'{FILE}')
 # Check if the file's path is valid
 if not os.path.isfile(THE_FILE) or THE_FILE == " " or THE_FILE == "":
-    print("❌ File not found")
+    print(f"❌ {Colors.BOLD}{Colors.RED}File not found{Colors.END}")
     sys.exit()
 
 if language in ["c++", "cpp"]:
@@ -96,7 +106,7 @@ class _Watcher:
                 time.sleep(5)
         except Exception:
             self.observer.stop()
-            print ("❌ Exiting program...")
+            print ("Exiting program...")
 
         self.observer.join()
 
@@ -110,12 +120,12 @@ class _Handler(FileSystemEventHandler):
 
         elif event.event_type == 'created':
             # Take any action here when a file is first created.
-            print(f"+ Received created event - {event.src_path}.")
+            print(f"{Colors.GREEN}{Colors.BOLD}+{Colors.END} {Colors.BOLD}Received created event - {event.src_path}.{Colors.END}")
 
         elif event.event_type == 'modified':
             # Taken any action here when a file is modified.
             if event.src_path == THE_FILE:
-                print("OUTPUT")
+                print("O U T P U T")
                 print("═══════════════════════════════════════════════════════════")
                 if language not in ["cpp", "c++", "c"]:
                     now = time.perf_counter()
@@ -125,21 +135,21 @@ class _Handler(FileSystemEventHandler):
                     now = time.perf_counter()
                     subprocess.call(COMMAND_LIST)
                     end = time.perf_counter()
-                    print("COMPLILATON COMPLETED")
+                    print(f"{Colors.GREEN}{Colors.BOLD}COMPLILATON COMPLETED{Colors.END}")
                 print("═══════════════════════════════════════════════════════════")
-                print(f"{end - now}s")
+                print(f"{Colors.PURPLE}{Colors.BOLD}{end - now}s{Colors.END}")
                 # get the time of execution
 
                 print(" ")
                 print("---")
-                print("✅ Listening for changes...")
+                print(f"✅ {Colors.GREEN}{Colors.BOLD}Listening for changes...{Colors.END}")
             elif event.src_path == f'{BASE_DIR}\detectchange.py':
-                print("❗RESTART THE PROGRAM FOR APPLY CHANGES❗")
+                print(f"❗{Colors.RED}{Colors.BOLD}RESTART THE PROGRAM FOR APPLY CHANGES{Colors.END}❗")
             else:
-                print(f"+ Received modified event - {event.src_path}.")
+                print(f"{Colors.GREEN}{Colors.BOLD}+{Colors.END} Received modified event - {event.src_path}.")
         elif event.event_type == 'deleted':
             # Taken any action here when a file is deleted.
-            print(f"- Received deleted event - {event.src_path}.")
+            print(f"{Colors.RED}{Colors.BOLD}-{Colors.END} Received deleted event - {event.src_path}.")
 
 
 def activate() -> None:

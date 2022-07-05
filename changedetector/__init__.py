@@ -11,7 +11,9 @@ __title__ = 'changedetector'
 __author__ = 'LuxLuth'
 __license__ = 'MIT'
 __copyright__ = 'Copyright (c) 2022 LuxLuth'
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
 
-from .detectchange import *
+from . import detectchange
+from . import _colors as colors
+from . import _purcent as purcent

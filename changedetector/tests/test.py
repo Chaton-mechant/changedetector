@@ -1,3 +1,4 @@
-from changedetector import detectchange
-detectchange.activate()
+from changedetector.detectchange import activate
+
+activate()
 
