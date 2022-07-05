@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Upload to TestPyPI
+name: Upload to TestPyPI 🛠️
 
 # Controls when the action will run. 
 on:
@@ -45,7 +45,7 @@ jobs:
           pip install
           build
           --user
-      - name: Build a binary wheel and a source tarball
+      - name: Build a binary wheel and a source tarball 🏢
         run: >-
           python -m
           build
@@ -60,3 +60,4 @@ jobs:
         with:
           password: ${{ secrets.TEST_CHANGEDETECTOR }}
           repository_url: https://test.pypi.org/legacy/
+          skip_existing: true
