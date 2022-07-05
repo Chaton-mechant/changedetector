@@ -38,7 +38,7 @@ packages = [
 setuptools.setup(
     name="changedetector",
     version=version,
-    author=" Lux Luth",
+    author="Lux Luth",
     author_email="luxusluth@gmail.com",
     description="A basic change detector for the Python, Ruby and C++.",
     long_description=long_description,
