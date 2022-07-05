@@ -11,7 +11,7 @@ __title__ = 'changedetector'
 __author__ = 'LuxLuth'
 __license__ = 'MIT'
 __copyright__ = 'Copyright (c) 2022 LuxLuth'
-__version__ = '0.0.2'
+__version__ = '0.0.3'
 
 
 from . import detectchange

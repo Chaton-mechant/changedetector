@@ -11,11 +11,12 @@ import time
 import os
 import subprocess
 import sys
+import pathlib
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from pyfiglet import Figlet
-from _purcent import Loader as __Loader
-from _colors import Colors
+from ._purcent import Loader as __Loader
+from ._colors import Colors
 
 
 os.system('cls' if os.name == 'nt' else 'clear')
@@ -40,10 +41,11 @@ elif language in ["c++", "cpp"]:
     if OUTPUT_FILE in ["", " "]:
         OUTPUT_FILE = "out.exe"
 else:
-    print("❌ Wrong language")
+    print(f"❌ {Colors.BOLD}{Colors.RED}Wrong language{Colors.END}")
     sys.exit()
 
-BASE_DIR = BASE_DIR = input(f"{Colors.BOLD}Enter the path to the directory you want to watch: {Colors.END}")
+# Automatic detection of the root directory
+BASE_DIR = pathlib.Path(__file__).parent.absolute().cwd()
 
 FILE = input(f"{Colors.BOLD}Enter the file you want to watch the base directory\n|-> {BASE_DIR}... \n{Colors.END}")
 THE_FILE = os.path.join(BASE_DIR, f'{FILE}')
